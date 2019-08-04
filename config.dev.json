@@ -1,0 +1,16 @@
+{
+    "db":{
+        "init":true,
+        "connectionString":"mongodb://localhost:27017/gcarparts"
+    },
+    "web":{
+        "allowedOrigins":[
+            "*"
+        ]
+    },
+    "security":{
+        "jwtExpiration":"300h",
+        "secret":"totalySecret",
+        "hashSalt":"totalySecret"
+    }
+}

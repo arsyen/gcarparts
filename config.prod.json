@@ -1,0 +1,16 @@
+{
+    "db":{
+        "init":true,
+        "connectionString":""
+    },
+    "web":{
+        "allowedOrigins":[
+            "*"
+        ]
+    },
+    "security":{
+        "jwtExpiration":"240h",
+        "secret":"totalySecret",
+        "hashSalt":"totalySecret"
+    }
+}
