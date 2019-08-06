@@ -18,6 +18,8 @@ expressConfig.configure(app);
 
 //Start server
 app.use('/static', express.static('static'));
+app.use('/front-end', express.static('front-end'));
+app.use('/front-end-admin', express.static('front-end-admin'));
 
 app.listen(app.get('port'), () => console.log(`Listening on port ${app.get('port')}!`));
 

@@ -13,8 +13,20 @@ const expressConfig = {
                 res.sendFile(path.join(__dirname + '/front-end/index.html'));
         });
 
+        app.get('/catalog', async function (req, res) {
+            res.sendFile(path.join(__dirname + '/front-end/catalog.html'));
+        });
+
+        app.get('/contact', async function (req, res) {
+            res.sendFile(path.join(__dirname + '/front-end/contact.html'));
+        });
+
         app.get('/admin', async function (req, res) {
                 res.sendFile(path.join(__dirname + '/front-end-admin/index.html'));
+        });
+
+        app.get('/admin-login', async function (req, res) {
+            res.sendFile(path.join(__dirname + '/front-end-admin/login.html'));
         });
 
         //File upload
