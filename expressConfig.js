@@ -3,12 +3,14 @@ const identityParser = require('./middleware/identityResolver');
 const bodyParser = require('body-parser');
 const identityResolver = require('./middleware/identityResolver');
 const expressRoutesConfig = require('./expressRoutesConfig');
+const cookieParser = require('cookie-parser')
 
 const expressConfig = {
     configure: (app) => {
 
         app.set('port', process.env.PORT || 8080);
         app.use(bodyParser.json());
+        app.use(cookieParser());
         app.use(bodyParser.urlencoded({ extended: true }));
         app.use(identityParser);
         app.use(identityResolver);

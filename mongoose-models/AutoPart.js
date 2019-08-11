@@ -1,12 +1,28 @@
 const mongoose = require('mongoose');
 
-const EntitySchema = mongoose.model('entitySchema', 
+const AutoPart = mongoose.model('autoPart', 
 {
+    carBrandId: {
+        type:mongoose.Schema.Types.ObjectId,
+        required:true
+    },
+    carModelId: {
+        type:mongoose.Schema.Types.ObjectId,
+        required:true
+    },
+    categoryId: {
+        type:mongoose.Schema.Types.ObjectId,
+        required:true
+    },
+    carBrand: {
+        type:String,
+        required:true
+    },
     brand: {
         type:String,
         required:true
     },
-    model: {
+    carModel: {
         type:String,
         required:true
     },
@@ -14,8 +30,8 @@ const EntitySchema = mongoose.model('entitySchema',
         type:String,
         required:true
     },
-    type: {
-        type:String,
+    years:{
+        type:[Number],
         required:true
     },
     name: {
@@ -30,22 +46,10 @@ const EntitySchema = mongoose.model('entitySchema',
         type:Number,
         required:true
     },
+    inStock: {
+        type:Boolean,
+        required:true
+    },
 });
 
-
-// fields:{
-//    "email":{
-//        type:"string",
-//        title:{
-//            "us":"email",
-//            "am":"Էլ․ փոստ"
-//        },
-//        validationRules:[ 
-//            {rule:'email', value:null},
-//            {rule:'max-length', value:100},
-//            {rule:'min-length', value:100},
-//        ]
-//    } 
-// }
-
-module.exports = EntitySchema;
+module.exports = AutoPart;

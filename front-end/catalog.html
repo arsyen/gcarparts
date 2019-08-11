@@ -17,177 +17,65 @@
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-        <a class="navbar-brand" href="#">Navbar</a>
+        <a class="navbar-brand" href="#">German Car Parts</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
             aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
 
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
-                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Dropdown
-                    </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Action</a>
-                        <a class="dropdown-item" href="#">Another action</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Something else here</a>
-                    </div>
-                </li>
-            </ul>
+        <a class="navbar-brand" href="#">Կատալոգ</a>
 
-            <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-dark my-2 my-sm-0" type="submit">Search</button>
-            </form>
-        </div>
     </nav>
     <div>
         <form>
             <div class="form-row align-items-center">
                 <div class="col-auto my-1">
                     <label class="mr-sm-2" for="inlineFormCustomSelect">Մակնիշ</label>
-                    <select class="custom-select mr-sm-2" id=" ">
-                        <option selected></option>
-                        <option value="1">Mercedes-Benz</option>
-                        <option value="2">BMW</option>
-                        <option value="3">Audi</option>
-                        <option value="4">Opel</option>
-                        <option value="5">Porshe</option>
+                    <select class="custom-select mr-sm-2" id="ddBrands" onchange="brandSelected(this,event)">
+                        <option value="all" selected>Բոլորը</option>
                     </select>
                 </div>
                 <div class="form-row align-items-center">
                     <div class="col-auto my-1">
-                        <label class="mr-sm-2" for="inlineFormCustomSelect">Մոդել</label>
-                        <select class="custom-select mr-sm-2" id=" ">
-                            <option selected></option>
-                            <option value="1">A180</option>
-                            <option value="2">C220</option>
-                            <option value="3">A8</option>
-                            <option value="4">Astra-G</option>
-                            <option value="5">Cayenne</option>
+                        <label class="mr-sm-2" >Մոդել</label>
+                        <select class="custom-select mr-sm-2" id="ddModels">
+                            <option value="all" selected>Բոլորը</option>
                         </select>
                     </div>
 
 
                 </div>
                 <div class="col-auto my-1">
-                    <label class="mr-sm-2" for="inlineFormCustomSelect">Կատեգորիա</label>
-                    <select class="custom-select mr-sm-2" id=" ">
-                        <option selected></option>
-                        <option value="1">Ընթացային</option>
-                        <option value="2">Էլեկտրական</option>
-                        <option value="3">Թափք</option>
-                        <option value="4">Ինտերիեր</option>
-                        <option value="5">Շարժիչ</option>
-                        <option value="6">Փոխանցումատուփ</option>
-                        <option value="7">Յուղեր և հեղուկներ</option>
+                    <label class="mr-sm-2" >Կատեգորիա</label>
+                    <select class="custom-select mr-sm-2" id="ddCategories">
+                        <option value="all" selected>Բոլորը</option>
                     </select>
                 </div>
                 <div class="col-auto my-1">
-                    <label class="mr-sm-2" for="inlineFormCustomSelect">Տարեթիվ՝ սկած</label>
-                    <select class="custom-select mr-sm-2" id=" ">
-                        <option selected></option>
-                        <option value="1">1980</option>
-                        <option value="2">1990</option>
-                        <option value="3">2000</option>
-                        <option value="4">2010</option>
+                    <label class="mr-sm-2" >Տարեթիվ</label>
+                    <select class="custom-select mr-sm-2" id="ddYearStart">
+                        <option value="all" selected>Բոլորը</option>
                     </select>
-                </div>
-                <div class="col-auto my-1">
-                    <label class="mr-sm-2" for="inlineFormCustomSelect">Մինչև</label>
-                    <select class="custom-select mr-sm-2" id=" ">
-                        <option selected></option>
-                        <option value="1">1980</option>
-                        <option value="2">1990</option>
-                        <option value="3">2000</option>
-                        <option value="4">2010</option>
-                    </select>
-                </div>
-
-                <div class="col-auto my-1">
-                    <button type="submit" class="btn btn-primary">Փնտրել</button>
                 </div>
         </form>
+        
+        <div class="col-auto my-1">
+            <a id='btnFiltersSubmit' onclick="searchParts()" class="btn btn-primary">Փնտրել</a>
+        </div>
     </div>
     <div class="container py-5">
-        <div class="row">
-            <div class="col-md-4">
-                <div class="card mb-4 shadow-sm">
-                    <img class="bd-placeholder-img card-img-top" width="100%" height="225" src="./front-end/gear.png"
-                        alt="">
-
-                    <div class="card-body">
-                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to
-                            additional content. This content is a little bit longer.</p>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                                <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                            </div>
-                            <small class="text-muted">9 mins</small>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-4">
-                <div class="card mb-4 shadow-sm">
-                    <img class="bd-placeholder-img card-img-top" width="100%" height="225" src="./front-end/gear.png"
-                        alt="">
-
-                    <div class="card-body">
-                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to
-                            additional content. This content is a little bit longer.</p>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                                <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                            </div>
-                            <small class="text-muted">9 mins</small>
-                        </div>
-                    </div>
-                </div>
-            </div>
+        <div class="row" id="partsListRow">
 
             
-
-            <div class="col-md-4">
-                <div class="card mb-4 shadow-sm">
-
-                    <img class="bd-placeholder-img card-img-top" width="100%" height="225" src="./front-end/gear.png"
-                        alt="">
-
-                    <div class="card-body">
-                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to
-                            additional content. This content is a little bit longer.</p>
-                        <div class="d-flex justify-content-between align-items-center">
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                                <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                            </div>
-                            <small class="text-muted">9 mins</small>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 
     <footer class="container">
         <p>© Company 2017-2019</p>
     </footer>
-    <script src="./front-end/vendor/jquery/jquery.slim.min.js"></script>
+    <script src="./front-end/vendor/jquery/jquery.min.js"></script>
     <script src="./front-end/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="./front-end/js/catalog.js"></script>
 </body>
 
 </html>

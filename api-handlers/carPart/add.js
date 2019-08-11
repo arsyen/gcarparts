@@ -1,51 +1,46 @@
-// const ambarResponse = require('../../core/ambarResponse');
-// const mongoose = require('mongoose');
-// const EntitySchema = require('../../mongoose-models/AutoPart');
-// const SchemaFieldValidationRule = require('../../mongoose-models/SchemaFieldValidationRule');
-// const VForObjectValidatorDynamic = require('../../v-for-json/VForObjectValidatorDynamic');
+const mongoose = require('mongoose');
+const mongo = require('mongodb');
+const AutoPart = require('../../mongoose-models/AutoPart');
+const CarBrand = require('../../mongoose-models/CarBrand');
+const CarModel = require('../../mongoose-models/CarModel');
+const PartCategory = require('../../mongoose-models/PartCategory');
 
-// const add = async (req, res) => {
-//     let data = req.body.data;
-//     let schemaName = req.body.schema;
-//     let collectionName = 'ude_' + schemaName;
+const add = async (req, res) => {
+    let requestData = req.body.data;
+    
+ 
+    let newData = {
+        inStock:requestData.inStock,
+        name:requestData.name,
+        years:requestData.years,
+        description:requestData.description,
+        price:requestData.price,
+        brand:requestData.brand
+    };
 
+    let carBrand = await CarBrand.findOne({_id: new mongo.ObjectID(requestData.carBrandId) }).exec();
+    let carModel = await CarModel.findOne({_id: new mongo.ObjectID(requestData.carModelId) }).exec();
+    let category = await PartCategory.findOne({_id: new mongo.ObjectID(requestData.categoryId) }).exec();
 
-//     //Get schema from db
-//     let schema = await EntitySchema.findOne({ name: schemaName }).exec();
-//     if (!schema) {
-//         res.status(400).send(ambarResponse.fail(0, "Schema not found: " + schemaName));
-//         return;
-//     }
+    newData.carBrandId=carBrand._id;
+    newData.carModelId=carModel._id;
+    newData.categoryId = category._id;
+    
+    newData.carBrand=carBrand.name;
+    newData.carModel=carModel.name;
+    newData.category = category.name;
 
-//     for (let fieldName in schema.fields) {
-//         if (schema.fields[fieldName].validationRules) {
-//             for (let i = 0; i < schema.fields[fieldName].validationRules.length; i++) {
-//                 let currentRule = schema.fields[fieldName].validationRules[i];
-//                 currentRule.rule = await SchemaFieldValidationRule.findOne({ key: currentRule.rule }).exec();
-//             }
-//         }
-//     }
+    let newPart = new AutoPart(newData);
 
-//     //Validate data using schema validation rules
-//     let v = new VForObjectValidatorDynamic(schemaName, schema.fields);
-//     v.validate(data, schemaName, schemaName, function (er) {
-//         if (er) {
-//             res.status(400).send(ambarResponse.fail(0, "Validation failed", er));
-//         }
-//         else {
-//             //Add collection to db if valid
-//             mongoose.connection.db.collection(collectionName).insertOne({ schema: schemaName, data: data }, (err, results) => {
-//                 if (err) {
-//                     res.status(500).send('Internal Server Error');
-//                 }
-//                 else {
-//                     console.log(results);
-//                     res.status(200).send(ambarResponse.success({}));
-//                 }
-//             });
-//         }
+    
+    newPart.save((err, result) => {
+        if (err) {
+            res.status(500).send(err);
+        }
+        else {
+            res.status(200).send({});
+        }
+    });  
+};
 
-//     })
-// };
-
-// module.exports = add;
+module.exports = add;

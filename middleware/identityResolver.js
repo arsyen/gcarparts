@@ -8,7 +8,12 @@ const identityResolver = (req, res, next) => {
     };
 
     let token = req.headers['x-access-token'];
+    console.log(req.cookies);
 
+    if(!token)
+        token= req.cookies.xt;
+        
+        
     if (token) {
         if (token.startsWith('Bearer')) {
             token = token.slice(7, token.lenght);
