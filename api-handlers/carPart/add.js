@@ -6,7 +6,7 @@ const CarModel = require('../../mongoose-models/CarModel');
 const PartCategory = require('../../mongoose-models/PartCategory');
 
 const add = async (req, res) => {
-    let requestData = req.body.data;
+    let requestData = req.body;
     
  
     let newData = {

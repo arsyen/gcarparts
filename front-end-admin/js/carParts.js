@@ -8,6 +8,8 @@ function fill_DDBrand() {
                 option.val(this._id);
                 ddlBrands.append(option);
             });
+
+            fill_DDModel();
         }
     });
 }
@@ -47,11 +49,16 @@ function generatePartsRow(record){
     return str;
 }
 
-function addNewModel() {
-    let name = $("#txtNewPartName").val();
+function addNewPart() {
+    let name = $("#txtName").val();
     let brandId = $("#ddlBrands").val();
-    let brandModelId = $("#ddlModels").val();
-    let categorylId = $("#ddlCategories").val();
+    let brandModelId = $("#ddlCarModels").val();
+    let categoryId = $("#ddlCategories").val();
+    let description = $("#txtDescription").val();
+    let price = $("#txtPrice").val();
+    let inStock =  document.getElementById('chkInStock').checked;
+    let partBrand = $("#txtPartBrand").val();
+    
 
     if(!name || !brandId)
     {
@@ -60,14 +67,21 @@ function addNewModel() {
     }
     
     console.log("posting");
+    let data=      { 
+        name:name,
+        carBrandId:brandId,
+        carModelId:brandModelId,
+        categoryId:categoryId,
+        description:description,
+        price:price,
+        inStock:inStock,
+        brand:partBrand
+    };
+    console.log(data);
     $.post(
         "/api/car-parts",
-        { 
-            name:name,
-            brandId:brandId
-        },
+        data,
         function (data) {
-            console.log("sdsadsad");
             var tblBrands = $("#tblParts");
 
             var option = $(generatePartsRow(null,name));
@@ -97,6 +111,7 @@ function fill_DDModel() {
     $.get(url, function (data, status, xhr) {
         if (status == 'success') {
             var ddlModel = $("#ddlCarModels");
+            ddlModel.empty();
             $(data).each(function () {
                 var option = $("<option />");
                 option.html(this.name);
