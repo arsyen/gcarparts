@@ -9,6 +9,10 @@ const CarModel = mongoose.model('carModel',
     brandId:{
         type:mongoose.Schema.Types.ObjectId,
         required:true
+    },
+    brandName:{
+        type:String,
+        required:true
     }
 });
 

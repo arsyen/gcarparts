@@ -43,6 +43,9 @@ const expressConfig = {
         app.get('/admin/categories', async function (req, res) {
             res.sendFile(path.join(__dirname + '/front-end-admin/categories.html'));
         });
+        app.get('/admin/parts', async function (req, res) {
+            res.sendFile(path.join(__dirname + '/front-end-admin/parts.html'));
+        });
 
         //File upload
         //app.post('/api/upload', multer({ dest: './uploads/' }).single('file'), fileUploadHandler);
@@ -62,6 +65,7 @@ const expressConfig = {
         app.get('/api/part-subcategories', partSubCategoryHandlers.getAll);
         app.post('/api/part-subcategories', partSubCategoryHandlers.add);
 
+        app.get('/api/car-models', carModelHandlers.getAll);
         app.get('/api/car-models/:brandId', carModelHandlers.getByBrand);
         app.post('/api/car-models', carModelHandlers.add);
 

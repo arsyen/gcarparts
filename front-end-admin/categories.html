@@ -1,21 +1,62 @@
 <!DOCTYPE html>
-<html lang="en">
-
+<html>
 <head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Brands</title>
 
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="">
-    <meta name="author" content="">
+<!-- Bootstrap core CSS -->
+<link href="../front-end/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<style>
+body {
+  font-family: "Lato", sans-serif;
+}
 
-    <title>Categories</title>
+.sidenav {
+  height: 100%;
+  width: 220;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  padding-top: 20px;
+}
 
-    <!-- Bootstrap core CSS -->
-    <link href="../front-end/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    
+.sidenav a {
+  padding: 6px 8px 6px 16px;
+  text-decoration: none;
+ 
+  color: #818181;
+  display: block;
+}
+
+.sidenav a:hover {
+  color: #f1f1f1;
+}
+
+.main {
+  margin-left: 250px; /* Same as the width of the sidenav */
+   
+  padding: 0px 10px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+</style>
 </head>
-
 <body>
+
+<div class="sidenav">
+    <a href="../admin/brands">Մակնիշներ</a>
+    <a href="../admin/models">Մոդելներ</a>
+    <a href="../admin/categories">Կատեգորիաներ</a>
+    <a href="../admin/parts">Պահեստամասեր</a>
+</div>
+
+<div class="main">
     <div>
         <table>
                 <tr>
@@ -57,7 +98,14 @@
     </footer>
     <script src="../front-end/vendor/jquery/jquery.min.js"></script>
     <script src="../front-end/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="../front-end-admin/js/categories.js"></script>    
-</body>
+    <script src="../front-end-admin/js/categories.js"></script>  
 
-</html>
+</div>
+<footer class="container">
+        
+</footer>
+<script src="../front-end/vendor/jquery/jquery.min.js"></script>
+<script src="../front-end/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="../front-end-admin/js/brands.js"></script>    
+</body>
+</html> 

@@ -8,6 +8,6 @@ function login() {
         function (data) {
             $.cookie('xt', data.token, { expires: 200, path: '/' });
             console.log(data.token);
-            //location = './admin';
+            location = './admin';
         }, "json");
 }

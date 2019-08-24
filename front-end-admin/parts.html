@@ -2,7 +2,7 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Brands</title>
+<title>Parts</title>
 
 <!-- Bootstrap core CSS -->
 <link href="../front-end/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -41,6 +41,10 @@ body {
   padding: 0px 10px;
 }
 
+table, th, td {
+  border: 1px solid black;
+}
+
 @media screen and (max-height: 450px) {
   .sidenav {padding-top: 15px;}
   .sidenav a {font-size: 18px;}
@@ -58,17 +62,23 @@ body {
 
 <div class="main">
     <div>
-        <table>
+        <table style="border-color: black; border-width: 2px">
                 <tr>
-                        <th>Անուն</th>
-                        <th>․․․</th> 
-                      </tr>
+                    <th>Անուն</th> 
+                    <th>Մոդել</th> 
+                        <th>Մակնիշ</th>
+
+                        <th>Կատեգորիա</th> 
+                        <th>Նկարագրություն</th> 
+                        <th>Գին</th> 
+                        <th>Առկա է</th> 
+                </tr>
         </table>
-        <table id="tblBrands">
+        <table id="tblParts">
         </table>
     
     </div>
-<button id="btnAddNewBrand" onclick="openNewBrandModal()">Ավելացնել</button>
+<button id="btnAddNewModel" onclick="openNewPartModal()">Ավելացնել</button>
 
 
 <div class="modal fade" id="myModal" role="dialog">
@@ -81,11 +91,29 @@ body {
               <h4 class="modal-title">Modal Header</h4>
             </div>
             <div class="col-auto my-1">
-                    <label class="mr-sm-2" for="inlineFormCustomSelect">Անուն</label>
-                    <input type="text" required class="custom-select mr-sm-2" id="txtNewBrandName"/>
+                    <label class="mr-sm-2" for="inlineFormCustomSelect">Մակնիշ</label>
+                    <select class="custom-select mr-sm-2" id="ddlBrands" onchange="fill_DDModel()">
+                        
+                    </select>
+                </div>
+                <div class="col-auto my-1">
+                    <label class="mr-sm-2" for="inlineFormCustomSelect">Կատեգորիա</label>
+                    <select class="custom-select mr-sm-2" id="ddlCategories">
+                        
+                    </select>
+                </div>
+                <div class="col-auto my-1">
+                    <label class="mr-sm-2" for="inlineFormCustomSelect">Մեքենայի Մոդել</label>
+                    <select class="custom-select mr-sm-2" id="ddlCarModels">
+                        
+                    </select>
+                </div>
+                <div class="col-auto my-1">
+                    <label class="mr-sm-2" for="inlineFormCustomSelect">Մոդել</label>
+                    <input type="text" required class="custom-select mr-sm-2" id="txtNewPartName"/>
                 </div>
                 <div>
-                        <button id="btnConfirmNewBrand" onclick="addNewBrand()">Ավելացնել</button>
+                        <button id="btnConfirmNewModel" onclick="addNewPart()">Ավելացնել</button>
                   </div>
           </div>
 
@@ -93,12 +121,13 @@ body {
         </div>
       </div>
 
+
 </div>
 <footer class="container">
         
 </footer>
 <script src="../front-end/vendor/jquery/jquery.min.js"></script>
 <script src="../front-end/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="../front-end-admin/js/brands.js"></script>    
+<script src="../front-end-admin/js/carparts.js"></script>    
 </body>
 </html> 
