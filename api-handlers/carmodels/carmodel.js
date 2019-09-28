@@ -2,51 +2,85 @@ const CarModel = require('../../mongoose-models/CarModel');
 const CarBrand = require('../../mongoose-models/CarBrand');
 const mongo = require('mongodb');
 
-const getByBrand =(req, res)=>{
+const getByBrand = (req, res) => {
     let brandId = req.params.brandId;
-    CarModel.find({brandId: new mongo.ObjectID(brandId)}, function (err, result) {
-        if(err){
+    CarModel.find({ brandId: new mongo.ObjectID(brandId) }, function (err, result) {
+        if (err) {
             console.log(err);
             res.status(500).send('Internal Server Error');
         }
-        else{
+        else {
             res.status(200).send(result);
         }
     });
 }
 
-const getAll =(req, res)=>{
+const getAll = (req, res) => {
     CarModel.find({}, function (err, result) {
-        if(err){
+        if (err) {
             console.log(err);
             res.status(500).send('Internal Server Error');
         }
-        else{
+        else {
             res.status(200).send(result);
         }
     });
 }
 
 const add = async (req, res) => {
-    let data = req.body; 
-    let brand = await CarBrand.findOne({_id: new mongo.ObjectID(req.body.brandId)});
-    data.brandName=brand.name;
+    let data = req.body;
+    let brand = await CarBrand.findOne({ _id: new mongo.ObjectID(req.body.brandId) });
+    data.brandName = brand.name;
 
     let newCarModel = new CarModel(data);
 
     newCarModel.save((err, result) => {
         if (err) {
+            console.log(err);
             res.status(500).send('Internal Server Error');
         }
         else {
-            res.status(200).send();
+            res.status(200).send(result);
         }
-    });  
+    });
 };
 
+const update = async (req, res) => {
+    let data = req.body;
+    let modelId = req.params.id;
+    let brand = await CarBrand.findOne({ _id: new mongo.ObjectID(req.body.brandId) });
+    data.brandName = brand.name;
+
+    CarModel.findOneAndUpdate({ _id: new mongo.ObjectID(modelId) },
+        data,
+        (err, result) => {
+            if (err) {
+                res.status(500).send('Internal Server Error');
+            }
+            else {
+                res.status(200).send(result);
+            }
+        });
+};
+
+const deleteModel = async (req, res) => { 
+    let modelId = req.params.id;
+
+    CarModel.findOneAndDelete({ _id: new mongo.ObjectID(modelId) },
+        (err, result) => {
+            if (err) {
+                res.status(500).send('Internal Server Error');
+            }
+            else {
+                res.status(200).send();
+            }
+        });
+};
 
 module.exports = {
     getByBrand,
     add,
-    getAll
+    getAll,
+    update,
+    deleteModel
 };

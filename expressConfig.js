@@ -31,6 +31,7 @@ const expressConfig = {
         }));
 
         expressRoutesConfig.configure(app);
+        
     }
 }
 

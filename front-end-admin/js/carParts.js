@@ -1,6 +1,8 @@
+var Brands;
 function fill_DDBrand() {
     $.get("/api/car-brands", function (data, status, xhr) {
         if (status == 'success') {
+            Brands = data;
             var ddlBrands = $("#ddlBrands");
             $(data).each(function () {
                 var option = $("<option />");
@@ -15,85 +17,186 @@ function fill_DDBrand() {
 }
 
 function openNewPartModal() {
+    $("#txtName").val("");
+    $("#ddlBrands").val("");
+    $("#ddlCarModels").val("");
+    $("#ddlCategories").val("");
+    $("#txtPartSerial").val("");
+    $("#txtPrice").val("");
+    $("#txtPartBrand").val("");
+    $("#txtPartYears").val("");
+    $("#inputImg").val("");
+    $("#imgPreview").prop("src", "");
     $("#myModal").modal('show');
 }
 function hideNewPartModal() {
     $("#myModal").modal('hide');
 }
 
+function openEditPartModal(id) {
+    $("#hdnEditId").val(id);
+
+    var part = Parts.find(function (element) {
+        return element._id === id;
+    });
+
+    $("#txtEditName").val(part.name);
+    $("#txtEditName").val(part.years.join(','));
+    $("#ddlEditCarBrands").val(part.carBrandId);
+    $("#ddlEditCarModels").val(part.carModelId);
+    $("#ddlEditCategories").val(part.categoryId);
+    $("#txtEditDescription").val(part.description);
+    $("#txtEditPrice").val(part.price);
+    $("#chkEditInStock").prop('checked', part.inStock);
+    $("#txtEditPartBrand").val(part.brand);
+    $("#txtEditPartSerial").val(part.serial);
+
+    $("#editModal").modal('show');
+}
+function hideEditPartModal() {
+    $("#hdnEditId").val("");
+    $("#editModal").modal('hide');
+}
+
+function openDeleteModal(id) {
+    $("#hdnDeleteId").val(id);
+    $("#deleteModal").modal('show');
+}
+function closeDeleteModal() {
+    $("#hdnDeleteId").val("");
+    $("#deleteModal").modal('hide');
+}
+
+
+function openImageModal(imageId) {
+    $("#imgModalPreview").prop('src', `../api/assets/images/${imageId}`);
+    $("#imageModal").modal('show');
+}
+
+
+
 function fill_PartsTable() {
     $.get("/api/car-parts", function (data, status, xhr) {
         if (status == 'success') {
+            Parts = data;
             var tblBrands = $("#tblParts");
+            let i = 0;
             $(data).each(function () {
-
-                var option = $(generatePartsRow(this));
+                i++;
+                var option = $(generatePartsRow(this, i));
                 tblBrands.append(option);
             });
         }
     });
 }
 
-function generatePartsRow(record){
-    let str = `<tr>
-
+function generatePartsRow(record, i) {
+    let str = `<tr id=${'tr_' + record._id}>
+    <th scope="row">${i}</th>
     <td>${record.name}</td>
     <td>${record.brand}</td>
     <td>${record.carBrand} ${record.carModel}</td>
     <td>${record.category}</td>
-    <td>${record.description}</td>
+    <td>${record.years.join(',')}</td>
     <td>${record.price}</td>
-    <td>${record.inStock ? "✓":"✗"}</td>
+    <td>${record.inStock ? "✓" : "✗"}</td>
+    <td>
+        ${
+            record.image ? `<button class="btn btn-outline-primary" onClick="openImageModal('${record.image}')">🖼</button>` : ""
+        }
+    </td>
+    <td>
+        <button class="btn btn-outline-primary" onClick="openEditModal('${record._id}')">Փոփոխել</button>
+        <button class="btn btn-secondary" onClick="openDeleteModal('${record._id}')">Ջնջել</button> 
+    </td>
+    
     </tr>`;
 
     return str;
 }
 
 function addNewPart() {
-    let name = $("#txtName").val();
+    let name = $("#txtNewPartName").val();
     let brandId = $("#ddlBrands").val();
     let brandModelId = $("#ddlCarModels").val();
     let categoryId = $("#ddlCategories").val();
-    let description = $("#txtDescription").val();
+    let serial = $("#txtPartSerial").val();
     let price = $("#txtPrice").val();
-    let inStock =  document.getElementById('chkInStock').checked;
+    let inStock = document.getElementById('chkInStock').checked;
     let partBrand = $("#txtPartBrand").val();
-    
+    let years = $("#txtPartYears").val();
+    let fileName = $("#hdnFileName").val();
+    let imageContentType = $("#hdnFileContentType").val();
+    // if (!name || !brandId) {
+    //     alert("Նշեք անունը և մակնիշը");
+    //     return;
+    // }
 
-    if(!name || !brandId)
-    {
-        alert("Նշեք անունը և մակնիշը");
-        return;
-    }
-    
     console.log("posting");
-    let data=      { 
-        name:name,
-        carBrandId:brandId,
-        carModelId:brandModelId,
-        categoryId:categoryId,
-        description:description,
-        price:price,
-        inStock:inStock,
-        brand:partBrand
+    let newData = {
+        name: name,
+        carBrandId: brandId,
+        carModelId: brandModelId,
+        categoryId: categoryId,
+        price: price,
+        inStock: inStock,
+        brand: partBrand,
+        years: years,
+        serial: serial,
+        fileName: fileName,
+        imageContentType: imageContentType
     };
-    console.log(data);
+    console.log(newData);
     $.post(
         "/api/car-parts",
-        data,
+        newData,
         function (data) {
             var tblBrands = $("#tblParts");
 
-            var option = $(generatePartsRow(null,name));
+            var option = $(generatePartsRow(data, ""));
             tblBrands.append(option);
             hideNewPartModal();
 
-        }, "json");
+        });
 }
 
+function deletePart() {
+    let partId = $("#hdnDeleteId").val();
+
+    $.ajax({
+        url: "/api/car-parts/" + partId,
+        type: 'DELETE',
+        success: function (result) {
+            $("#tr_" + partId).remove();
+            closeDeleteModal();
+        }
+    });
+}
+
+
+function uploadImage() {
+    var fd = new FormData;
+    fd.append('file', $("#inputImg").prop('files')[0]);
+
+    $.ajax({
+        url: '/api/upload',
+        data: fd,
+        processData: false,
+        contentType: false,
+        type: 'POST',
+        success: function (data) {
+            $("#hdnFileName").val(data.fileName);
+            $("#hdnFileContentType").val(data.contentType);
+            $("#imgPreview").prop("src", data.path);
+        }
+    });
+}
+
+var Categories;
 function fill_DDCategory() {
     $.get("/api/part-categories", function (data, status, xhr) {
         if (status == 'success') {
+            Categories = data;
             var ddlCategory = $("#ddlCategories");
             $(data).each(function () {
                 var option = $("<option />");
@@ -105,11 +208,13 @@ function fill_DDCategory() {
     });
 }
 
+var Models;
 function fill_DDModel() {
     let brandId = $("#ddlBrands").val();
-    let url  = "/api/car-models/"+brandId;
+    let url = "/api/car-models/" + brandId;
     $.get(url, function (data, status, xhr) {
         if (status == 'success') {
+            Models = data;
             var ddlModel = $("#ddlCarModels");
             ddlModel.empty();
             $(data).each(function () {

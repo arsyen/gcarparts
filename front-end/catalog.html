@@ -30,6 +30,12 @@
         <form>
             <div class="form-row align-items-center">
                 <div class="col-auto my-1">
+                    <div class="col-auto my-1">
+                        <label class="mr-sm-2">Serial:#</label>
+                        <input type="text" class="form-control" id="txtSerial" />
+                    </div>
+                </div>
+                <div class="col-auto my-1">
                     <label class="mr-sm-2" for="inlineFormCustomSelect">Մակնիշ</label>
                     <select class="custom-select mr-sm-2" id="ddBrands" onchange="brandSelected(this,event)">
                         <option value="all" selected>Բոլորը</option>
@@ -37,7 +43,7 @@
                 </div>
                 <div class="form-row align-items-center">
                     <div class="col-auto my-1">
-                        <label class="mr-sm-2" >Մոդել</label>
+                        <label class="mr-sm-2">Մոդել</label>
                         <select class="custom-select mr-sm-2" id="ddModels">
                             <option value="all" selected>Բոլորը</option>
                         </select>
@@ -46,19 +52,19 @@
 
                 </div>
                 <div class="col-auto my-1">
-                    <label class="mr-sm-2" >Կատեգորիա</label>
+                    <label class="mr-sm-2">Կատեգորիա</label>
                     <select class="custom-select mr-sm-2" id="ddCategories">
                         <option value="all" selected>Բոլորը</option>
                     </select>
                 </div>
                 <div class="col-auto my-1">
-                    <label class="mr-sm-2" >Տարեթիվ</label>
+                    <label class="mr-sm-2">Տարեթիվ</label>
                     <select class="custom-select mr-sm-2" id="ddYearStart">
                         <option value="all" selected>Բոլորը</option>
                     </select>
                 </div>
         </form>
-        
+
         <div class="col-auto my-1">
             <a id='btnFiltersSubmit' onclick="searchParts()" class="btn btn-primary">Փնտրել</a>
         </div>
@@ -66,7 +72,7 @@
     <div class="container py-5">
         <div class="row" id="partsListRow">
 
-            
+
         </div>
     </div>
 
@@ -75,6 +81,7 @@
     </footer>
     <script src="./front-end/vendor/jquery/jquery.min.js"></script>
     <script src="./front-end/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="./front-end/js/utils.js"></script>
     <script src="./front-end/js/catalog.js"></script>
 </body>
 

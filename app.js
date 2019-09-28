@@ -19,7 +19,7 @@ const app = express();
 expressConfig.configure(app);
 
 //Start server
-app.use('/static', express.static('static'));
+app.use('/uploads', express.static('uploads'));
 app.use('/front-end', express.static('front-end'));
 app.use('/front-end-admin', express.static('front-end-admin'));
 

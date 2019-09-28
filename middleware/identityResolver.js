@@ -8,8 +8,7 @@ const identityResolver = (req, res, next) => {
     };
 
     let token = req.headers['x-access-token'];
-    console.log(req.cookies);
-
+     
     if(!token)
         token= req.cookies.xt;
         
@@ -21,11 +20,10 @@ const identityResolver = (req, res, next) => {
         //Resolve identity token
         jwt.verify(token, config.security.secret, (err, decoded) => {
             if (err) {
-                console.log(err);
+                console.log("ERROR", err);
                 next();
             }
             else {
-                console.log('Identity detected:', decoded);
                 req.identity.authenticated = true;
                 req.identity.username = decoded.username;
                 req.identity.userId = decoded.userId;
@@ -33,11 +31,10 @@ const identityResolver = (req, res, next) => {
                 //Resolve user data from db (roles,status, etc. )
                 User.findById(req.identity.userId, function (err, user) {
                     if (err) {
-                        console.log(err);
+                        console.log("ERROR", err);
                         return res.status(500).send('Internal Server Error');
                     }
                     else if (user) {
-                        console.log("found roles", user.roles);
                         req.identity.roles = user.roles;
                         req.identity.status = user.status;
                         next();

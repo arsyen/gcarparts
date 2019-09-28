@@ -83,24 +83,30 @@ function searchParts() {
     var brandId = ValueForDDLDefault($("#ddBrands").val());
     var year = ValueForDDLDefault($("#ddYearStart").val());
     var categoryId = ValueForDDLDefault($("#ddCategories").val());
+    var serial = $("#txtSerial").val();
 
-    let query = `/api/car-parts?a=0&cbid=${brandId}&cid=${categoryId}&mid=${modelId}&year=${year}`;
+    let query = "";
+    if (serial)
+        query = `/api/car-parts?a=0&sn=${serial}`
+    else
+        query = `/api/car-parts?a=0&cbid=${brandId}&cid=${categoryId}&mid=${modelId}&year=${year}`;
 
-    $.get(query, function (data, status, xhr) {
-        if (status == 'success') {
-            var list = $("#partsListRow");
-            list.empty();
-            $(data).each(function () {
+    if (query) {
+        $.get(query, function (data, status, xhr) {
+            if (status == 'success') {
+                var list = $("#partsListRow");
+                list.empty();
+                $(data).each(function () {
 
-                let itemTemplate = `<div class="col-md-4">
+                    let itemTemplate = `<div class="col-md-4">
                 <div class="card mb-4 shadow-sm">
-                    <img class="bd-placeholder-img card-img-top" width="100%" height="225" src="./front-end/gear.png"
-                        alt="">
+                    <img class="bd-placeholder-img card-img-top" width="100%" height="225" alt=""
+                        src="${'../api/assets/images/' + this.image}"
+                        >
             
                     <div class="card-body">
                         <p class="card-text">${this.brand} ${this.name}</p>
                         <p class="card-text">${this.carBrand} ${this.carModel}</p>
-                        <p class="card-text">${this.description}</p>
                         <p class="card-text">${this.years}</p>
                         <div class="d-flex justify-content-between align-items-center">
                             <small class="text-muted">${(this.inStock ? "Առկա է" : "Առկա չէ")}</small>
@@ -111,14 +117,24 @@ function searchParts() {
             </div>`;
 
 
-                var option = $(itemTemplate);
-                list.append(option);
-            });
-        }
-    });
+                    var option = $(itemTemplate);
+                    list.append(option);
+                });
+            }
+        });
+    }
 
 }
 
 fill_DDBrand();
 fill_DDCategories();
 fill_DDYears();
+
+//If there is serial number in query
+//search by serial number
+let urlVars=getUrlVars(window.location.href);
+
+if(urlVars.sn) {
+    $("#txtSerial").val(urlVars.sn);
+    searchParts();
+}

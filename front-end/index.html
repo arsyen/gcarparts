@@ -34,27 +34,20 @@
                         data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                         Մակնիշներ
                     </a>
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <a class="dropdown-item" href="#">Mercedes-Benz</a>
-                        <a class="dropdown-item" href="#">BMW</a>
-                        <a class="dropdown-item" href="#">Audi</a>
-                        <a class="dropdown-item" href="#">Volkswagen</a>
-                        <a class="dropdown-item" href="#">Porche</a>
-                        <a class="dropdown-item" href="#">Opel</a>
-                        <div class="dropdown-divider"></div>
-                        <a class="dropdown-item" href="#">Something else here</a>
+                    <div id="ddBrands" class="dropdown-menu" aria-labelledby="navbarDropdown">
                     </div>
                 </li>
 
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Կապնվել մեզ հետ</a>
+                    <a class="nav-link" href="../contact">Կապնվել մեզ հետ</a>
                 </li>
             </ul>
 
             <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="ներմուծեք սերիական համարը" aria-label="Search">
-                <button class="btn btn-dark my-2 my-sm-0" type="submit">Փնտրել</button>
+                <input id="txtSerial" class="form-control mr-sm-2" type="search" placeholder="ներմուծեք սերիական համարը" aria-label="Search">
+                
             </form>
+            <button class="btn btn-dark my-2 my-sm-0" onclick="searchBySerial()">Փնտրել</button>
         </div>
     </nav>
 
@@ -69,9 +62,8 @@
                 <img src="./front-end/SLK-350.jpg" class="d-block w-100" style="filter: blur(2px);" alt="...">
                 <div class="container">
                     <div class="carousel-caption">
-                        <h1>Another example headline.</h1>
-                        <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta
-                            gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+                        <h1>Օրիգինալ պահեստամասեր գերմանական արտադրության մեքենաների համար</h1>
+                        <p></p>
                         <p><a class="btn btn-lg btn-primary" href="#" role="button">Կատալոգ</a></p>
                     </div>
                 </div>
@@ -80,9 +72,8 @@
                 <img src="./front-end/2015-audi.jpg" class="d-block w-100" style="filter: blur(2px);" alt="...">
                 <div class="container">
                     <div class="carousel-caption">
-                        <h1>Another example headline.</h1>
-                        <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta
-                            gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+                        <h1>Փնտրեք ձեր մեքենայի պահեստամասը օնլայն կատալոգում</h1>
+                        <p></p>
                         <p><a class="btn btn-lg btn-primary" href="#" role="button">Կատալոգ</a></p>
                     </div>
                 </div>
@@ -91,9 +82,8 @@
                 <img src="./front-end/BMW-M3-Tornado.jpg" style="filter: blur(2px);" class="d-block w-100" alt="...">
                 <div class="container">
                     <div class="carousel-caption">
-                        <h1>Another example headline.</h1>
-                        <p>Cras justo odio, dapibus ac facilisis in, egestas eget quam. Donec id elit non mi porta
-                            gravida at eget metus. Nullam id dolor id nibh ultricies vehicula ut id elit.</p>
+                        <h1> Զանգահարեք և պատվիրեք կարճ ժամկետներում</h1>
+                        <p></p>
                         <p><a class="btn btn-lg btn-primary" href="#" role="button">Կատալոգ</a></p>
                     </div>
                 </div>
@@ -114,17 +104,14 @@
             <div class="col-md-4">
                 <div class="card mb-4 shadow-sm">
                     <img class="bd-placeholder-img card-img-top" width="100%" height="225"
-                        src="https://picsum.photos/id/456/280/188" alt="">
+                        src="./front-end/assets/carparts.jpg" alt="">
 
                     <div class="card-body">
-                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to
-                            additional content. This content is a little bit longer.</p>
+                        <p class="card-text">Միայն օրիգինալ պահեստամասեր</p>
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="btn-group">
-                                <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                                <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
                             </div>
-                            <small class="text-muted">9 mins</small>
+                            <small class="text-muted"></small>
                         </div>
                     </div>
                 </div>
@@ -133,17 +120,13 @@
             <div class="col-md-4">
                 <div class="card mb-4 shadow-sm">
                     <img class="bd-placeholder-img card-img-top" width="100%" height="225"
-                        src="https://picsum.photos/id/456/280/188" alt="">
+                    src="./front-end/assets/oil.jpg" alt="">
 
                     <div class="card-body">
-                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to
-                            additional content. This content is a little bit longer.</p>
+                        <p class="card-text">Բարձրորակ ավտոյուղեր</p>
                         <div class="d-flex justify-content-between align-items-center">
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                                <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
-                            </div>
-                            <small class="text-muted">9 mins</small>
+                            
+                            <small class="text-muted"></small>
                         </div>
                     </div>
                 </div>
@@ -152,17 +135,14 @@
                 <div class="card mb-4 shadow-sm">
 
                     <img class="bd-placeholder-img card-img-top" width="100%" height="225"
-                        src="https://picsum.photos/id/456/280/188" alt="">
+                    src="./front-end/assets/cosm.jpg"  alt="">
 
                     <div class="card-body">
-                        <p class="card-text">This is a wider card with supporting text below as a natural lead-in to
-                            additional content. This content is a little bit longer.</p>
+                        <p class="card-text">Քսուքներ և ավտոկոսմետիկա</p>
                         <div class="d-flex justify-content-between align-items-center">
                             <div class="btn-group">
-                                <button type="button" class="btn btn-sm btn-outline-secondary">View</button>
-                                <button type="button" class="btn btn-sm btn-outline-secondary">Edit</button>
                             </div>
-                            <small class="text-muted">9 mins</small>
+                            <small class="text-muted"></small>
                         </div>
                     </div>
                 </div>
@@ -174,8 +154,14 @@
         <p>© Company 2017-2019</p>
     </footer>
 
-    <script src="./front-end/vendor/jquery/jquery.slim.min.js"></script>
-    <script src="./front-end/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="../front-end/vendor/jquery/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+      integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+      crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+      integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+      crossorigin="anonymous"></script>
+    <script src="./front-end/js/home.js"></script>
 </body>
 
 </html>
