@@ -1,7 +1,7 @@
 {
     "db":{
         "init":true,
-        "connectionString":""
+        "connectionString":"mongodb://01725de01ff2770d7fe853e7baf142b9:gcdb!10010en@mongodb0.example.com:27017/01725de01ff2770d7fe853e7baf142b9"
     },
     "web":{
         "allowedOrigins":[
