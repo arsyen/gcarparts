@@ -58,6 +58,7 @@ const expressConfig = {
         app.get('/api/car-parts', carPartsCRUD.get);
         app.post('/api/car-parts', carPartsCRUD.add);
         app.delete('/api/car-parts/:id', carPartsCRUD.deletePart);
+        app.put('/api/car-parts/:id', carPartsCRUD.update);
 
         app.get('/api/car-brands', carBrandsHandlers.getAll);
         app.post('/api/car-brands', carBrandsHandlers.add);

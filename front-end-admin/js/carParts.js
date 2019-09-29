@@ -28,6 +28,12 @@ function openNewPartModal() {
     $("#inputImg").val("");
     $("#imgPreview").prop("src", "");
     $("#myModal").modal('show');
+    $("#hdnEditId").val("");
+    $("#hdnFileName").val("");
+    $("#hdnFileContentType").val("");
+
+    $("#btnAddPart").show();
+    $("#btnEditPart").hide();
 }
 function hideNewPartModal() {
     $("#myModal").modal('hide');
@@ -40,18 +46,23 @@ function openEditPartModal(id) {
         return element._id === id;
     });
 
-    $("#txtEditName").val(part.name);
-    $("#txtEditName").val(part.years.join(','));
-    $("#ddlEditCarBrands").val(part.carBrandId);
-    $("#ddlEditCarModels").val(part.carModelId);
-    $("#ddlEditCategories").val(part.categoryId);
-    $("#txtEditDescription").val(part.description);
-    $("#txtEditPrice").val(part.price);
-    $("#chkEditInStock").prop('checked', part.inStock);
-    $("#txtEditPartBrand").val(part.brand);
-    $("#txtEditPartSerial").val(part.serial);
-
-    $("#editModal").modal('show');
+    $("#txtNewPartName").val(part.name);
+    $("#txtPartYears").val(part.years.join(','));
+    $("#ddlBrands").val(part.carBrandId);
+    $("#ddlCarModels").val(part.carModelId);
+    $("#ddlCategories").val(part.categoryId);
+    $("#txtDescription").val(part.description);
+    $("#txtPrice").val(part.price);
+    $("#chkInStock").prop('checked', part.inStock);
+    $("#txtPartBrand").val(part.brand);
+    $("#txtPartSerial").val(part.serial);
+    $("#hdnFileName").val("");
+    $("#hdnFileContentType").val("");
+    $("#imgPreview").prop('src', `../api/assets/images/${part.image}`);
+    fill_DDModel();
+    $("#btnAddPart").hide();
+    $("#btnEditPart").show();
+    $("#myModal").modal('show');
 }
 function hideEditPartModal() {
     $("#hdnEditId").val("");
@@ -102,11 +113,11 @@ function generatePartsRow(record, i) {
     <td>${record.inStock ? "✓" : "✗"}</td>
     <td>
         ${
-            record.image ? `<button class="btn btn-outline-primary" onClick="openImageModal('${record.image}')">🖼</button>` : ""
+        record.image ? `<button class="btn btn-outline-primary" onClick="openImageModal('${record.image}')">🖼</button>` : ""
         }
     </td>
     <td>
-        <button class="btn btn-outline-primary" onClick="openEditModal('${record._id}')">Փոփոխել</button>
+        <button class="btn btn-outline-primary" onClick="openEditPartModal('${record._id}')">Փոփոխել</button>
         <button class="btn btn-secondary" onClick="openDeleteModal('${record._id}')">Ջնջել</button> 
     </td>
     
@@ -132,7 +143,7 @@ function addNewPart() {
     //     return;
     // }
 
-    console.log("posting");
+
     let newData = {
         name: name,
         carBrandId: brandId,
@@ -156,8 +167,51 @@ function addNewPart() {
             var option = $(generatePartsRow(data, ""));
             tblBrands.append(option);
             hideNewPartModal();
-
         });
+}
+
+function updatePart() {
+    let partId = $("#hdnEditId").val();
+    let name = $("#txtNewPartName").val();
+    let brandId = $("#ddlBrands").val();
+    let brandModelId = $("#ddlCarModels").val();
+    let categoryId = $("#ddlCategories").val();
+    let serial = $("#txtPartSerial").val();
+    let price = $("#txtPrice").val();
+    let inStock = document.getElementById('chkInStock').checked;
+    let partBrand = $("#txtPartBrand").val();
+    let years = $("#txtPartYears").val();
+    let fileName = $("#hdnFileName").val();
+    let imageContentType = $("#hdnFileContentType").val();
+    // if (!name || !brandId) {
+    //     alert("Նշեք անունը և մակնիշը");
+    //     return;
+    // }
+
+
+    let newData = {
+        name: name,
+        carBrandId: brandId,
+        carModelId: brandModelId,
+        categoryId: categoryId,
+        price: price,
+        inStock: inStock,
+        brand: partBrand,
+        years: years,
+        serial: serial,
+        fileName: fileName,
+        imageContentType: imageContentType
+    };
+
+    $.ajax({
+        url: "/api/car-parts/"+partId,
+        type: 'PUT',
+        contentType: "application/json",
+        data: JSON.stringify(newData),
+        success: function (data) {
+            hideNewPartModal();
+        }
+    });
 }
 
 function deletePart() {

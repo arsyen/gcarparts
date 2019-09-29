@@ -70,13 +70,78 @@ const add = async (req, res) => {
     });
 };
 
+const update = async (req, res) => {
+    try {
+        let partId = req.params.id;
+        let requestData = req.body;
+
+        let newData = {
+            inStock: requestData.inStock,
+            name: requestData.name,
+            price: requestData.price,
+            brand: requestData.brand,
+            serial: requestData.serial
+        };
+
+        if (requestData.years) {
+            let yearsArray = [];
+            let yearsStrings = requestData.years.split(',');
+            for (let i = 0; i < yearsStrings.length; i++) {
+                if (yearsStrings[i]) {
+                    yearsArray.push(parseInt(yearsStrings[i].trim()));
+                }
+            }
+
+            newData.years = yearsArray;
+        }
+
+        let carBrand = await CarBrand.findOne({ _id: new mongo.ObjectID(requestData.carBrandId) }).exec();
+        let carModel = await CarModel.findOne({ _id: new mongo.ObjectID(requestData.carModelId) }).exec();
+        let category = await PartCategory.findOne({ _id: new mongo.ObjectID(requestData.categoryId) }).exec();
+
+        newData.carBrandId = carBrand._id;
+        newData.carModelId = carModel._id;
+        newData.categoryId = category._id;
+
+        newData.carBrand = carBrand.name;
+        newData.carModel = carModel.name;
+        newData.category = category.name;
+
+        //Save image in db
+        if (req.body.fileName) {
+            let filePath = `./uploads/${req.body.fileName}`;
+            let imageData = fs.readFileSync(filePath);
+            let imageInDb = await new PartImage({
+                img: {
+                    data: imageData,
+                    contentType: req.body.imageContentType
+                }
+            }).save();
+            newData.image = imageInDb._id;
+            fs.unlinkSync(filePath);
+        }
+
+
+        let newPart = new AutoPart(newData);
+
+        let updated = await AutoPart.findOneAndUpdate(
+            { _id: new mongo.ObjectID(partId) },
+            newData);
+
+        res.status(200).send(updated);
+    } 
+    catch (ex) {
+        res.status(500).send(updated);
+    }
+};
+
 
 const get = (req, res) => {
     let serial = req.query.sn;
 
-    if(serial){
+    if (serial) {
         let collectionName = 'autoparts';
-        mongoose.connection.collection(collectionName).find({serial:serial}).toArray((err, result) => {
+        mongoose.connection.collection(collectionName).find({ serial: serial }).toArray((err, result) => {
             if (err) {
                 res.status(500).send('Internal Server Error');
             }
@@ -137,10 +202,9 @@ const deletePart = async (req, res) => {
 };
 
 
-module.exports = get;
-
 module.exports = {
     add: add,
     get: get,
-    deletePart: deletePart
+    deletePart: deletePart,
+    update: update
 }
