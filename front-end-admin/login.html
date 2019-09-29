@@ -12,38 +12,36 @@
 
     <!-- Bootstrap core CSS -->
     <link href="./front-end/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    
+
 
 </head>
 
-<body>
-    <div>
+<body style="background-color: wheat">
+    <div class="container" style="align-content: center;width: 400px;">
         <form>
-            <div class="form-row align-items-center">
-                <div class="col-auto my-1">
-                    <label class="mr-sm-2" for="inlineFormCustomSelect">Login</label>
-                    <input type="text" required class="custom-select mr-sm-2" id="txtUsername"/>
-                </div>
-                <div class="col-auto my-1">
-                    <label class="mr-sm-2" for="inlineFormCustomSelect">Password</label>
-                    <input type="password" required class="custom-select mr-sm-2" id="txtPassword"/>
-                </div>
-                <div class="col-auto my-1">
-                    <a id='btnFiltersSubmit' onclick="login()" class="btn btn-primary">Login</a>
-                </div>
+            <div>
+                <label class="mr-sm-2" for="inlineFormCustomSelect">Login</label>
+                <input type="text" required class="form-control" id="txtUsername" />
+            </div>
+            <div>
+                <label class="mr-sm-2" for="inlineFormCustomSelect">Password</label>
+                <input type="password" required class="form-control" id="txtPassword" />
+            </div>
+            <div>
+                <br/>
+                <a id='btnFiltersSubmit' onclick="login()" class="btn btn-primary">Login</a>
+            </div>
         </form>
-        
 
     </div>
 
-    <footer class="container">
-        
-    </footer>
+
+
     <script src="./front-end/vendor/jquery/jquery.min.js"></script>
     <script src="./front-end/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="./front-end-admin/js/login.js"></script>
     <script src="./front-end/vendor/jquery-cookie/jquery.cookie.js"></script>
-    
+
 </body>
 
 </html>
