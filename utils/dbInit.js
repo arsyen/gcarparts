@@ -16,10 +16,10 @@ const dbInit = async (callback) => {
     mongoose.connect(config.db.connectionString, { useNewUrlParser: true, useCreateIndex: true });
     mongoose.Promise = global.Promise;
 
-    fillDb("carbrands", brands);
-    fillDb("partcategories", categories);
-    fillDb("partsubcategories", subCategories);
-    fillDb("carmodels", carModels);
+    //fillDb("carbrands", brands);
+    //fillDb("partcategories", categories);
+    //fillDb("partsubcategories", subCategories);
+    //fillDb("carmodels", carModels);
 
     let updateOptions = {
         upsert: true,
@@ -28,15 +28,15 @@ const dbInit = async (callback) => {
     }
     await User.findOneAndUpdate(
         {
-            "username": "admin"
+            "username": "VAHEGALSTYAN1991"
         },
         {
-            "username": "admin",
+            "username": "VAHEGALSTYAN1991",
             "firstName": "admin",
             "lastName": "admin",
             "email": "",
             "status": "active",
-            "password": Hasher.sha512("admin").passwordHash,
+            "password": Hasher.sha512("GALSTYANVAHE91ND091").passwordHash,
             "roles": ["owner"]
         },
         updateOptions).exec();

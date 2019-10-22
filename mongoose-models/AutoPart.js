@@ -44,7 +44,7 @@ const AutoPart = mongoose.model('autoPart',
         },
         price: {
             type: Number,
-            required: true
+            required: false
         },
         image: {
             type: String,
