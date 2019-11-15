@@ -155,7 +155,7 @@ const get = (req, res) => {
 
     //Determine paging info
     let page = req.query.page || 1;
-    let size = req.query.size || 30;
+    let size = req.query.size || 200;
     page = Number(page);
     size = Number(size);
     let skip = size * (page - 1)
