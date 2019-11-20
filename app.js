@@ -7,7 +7,7 @@ const config = require('./utils/config-helper');
 
 //Connect to mongo db
 mongoose.Promise = global.Promise;
-mongoose.connect(config.db.connectionString, { useNewUrlParser: true, useCreateIndex: true });
+mongoose.connect(config.db.connectionString, { useNewUrlParser: true, useCreateIndex: true, useUnifiedTopology:true });
 
 if (config.db.init) {
      dbInit();

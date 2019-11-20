@@ -12,7 +12,15 @@
 
     <!-- Bootstrap core CSS -->
     <link href="./front-end/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .shadow-sm {
+            height: 100%;
+        }
 
+        .card-box {
+            margin-bottom: 30px;
+        }
+    </style>
 </head>
 
 <body>
@@ -26,9 +34,9 @@
         <a class="navbar-brand" href="#">Կատալոգ</a>
 
     </nav>
-    <div>
-        <form>
-            <div class="form-row align-items-center">
+    <div class="container-fluid">
+        <form class="mt-4">
+            <div class="form-row align-items-center d-flex justify-content-center">
                 <div class="col-auto my-1">
                     <div class="col-auto my-1">
                         <label class="mr-sm-2">Serial:#</label>
@@ -66,7 +74,13 @@
         </form>
 
         <div class="col-auto my-1">
-            <a id='btnFiltersSubmit' onclick="searchParts()" class="btn btn-primary">Փնտրել</a>
+            <label class="mr-sm-2"></label>
+
+            <a
+                id='btnFiltersSubmit'
+                onclick="searchParts()"
+                class="btn btn-primary mt-2 d-block"
+            >Փնտրել</a>
         </div>
     </div>
     <div class="container py-5">
@@ -77,7 +91,7 @@
     </div>
 
     <footer class="container">
-        <p>© Company 2017-2019</p>
+        <p>© German Car Parts</p>
     </footer>
     <script src="./front-end/vendor/jquery/jquery.min.js"></script>
     <script src="./front-end/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
