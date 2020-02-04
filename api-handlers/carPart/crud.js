@@ -155,13 +155,15 @@ const get = (req, res) => {
 
     //Determine paging info
     let page = req.query.page || 1;
-    let size = req.query.size || 300;
+    let size = req.query.size || 1000;
+
     page = Number(page);
     size = Number(size);
     let skip = size * (page - 1)
 
     //Construct filter
     let findFilter = {};
+    console.log(req.query);
     if (req.query.cbid)
         findFilter.carBrandId = new mongo.ObjectID(req.query.cbid);
     if (req.query.mid)
